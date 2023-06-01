@@ -1,0 +1,18 @@
+{{ config(materialized='table')}}
+
+with source as (
+ select * from {{ ref('parsed_edi_data') }}
+)
+
+SELECT _FILE,
+       _MODIFIED, 
+       _LINE, 
+       SEGMENT_TYPE,
+       PARSED_COL_1 AS CITY_NAME,
+       PARSED_COL_2 AS STATE_OR_PROVINCE_CODE,
+       PARSED_COL_3 AS POSTAL_CODE,
+       PARSED_COL_4 AS COUNTRY_CODE,
+       PARSED_COL_5 AS LOCATION_QUALIFIER,
+       PARSED_COL_6 AS LOCATION_IDENTIFIER,
+       PARSED_COL_7 AS COUNTRY_SUBDIVISION_CODE,
+       PARSED_COL_8 AS POSTAL_CODE_FORMATTED FROM source WHERE SEGMENT_TYPE = 'N4'

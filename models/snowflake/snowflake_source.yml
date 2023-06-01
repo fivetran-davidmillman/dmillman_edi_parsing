@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: snowflake
+    database: DAVID_MILLMAN
+    schema: EDITEST_AUG31
+    tables:
+    - name: ediraw
+  - name: snowflake2
+    database: DAVID_MILLMAN
+    schema: DBT_SCHEMA
+    tables:
+    - name: test_model_dbt

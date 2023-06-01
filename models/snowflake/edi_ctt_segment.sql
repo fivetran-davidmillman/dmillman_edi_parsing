@@ -1,0 +1,17 @@
+{{ config(materialized='table')}}
+
+with source as (
+ select * from {{ ref('parsed_edi_data') }}
+)
+
+SELECT _FILE,
+       _MODIFIED, 
+       _LINE, 
+       SEGMENT_TYPE,
+       PARSED_COL_1 AS NUMBER_OF_LINE_ITEMS,
+       PARSED_COL_2 AS HASH_TOTAL,
+       PARSED_COL_3 AS CTT_WEIGHT,
+       PARSED_COL_4 AS CTT_UNIT_OR_BASIS_FOR_MEASUREMENT_CODE,
+       PARSED_COL_5 AS CTT_VOLUME,
+       PARSED_COL_6 AS CTT_UNIT_OR_BASIS_FOR_MEASUREMENT_CODE_02,
+       PARSED_COL_7 AS CTT_DESCRIPTION FROM source WHERE SEGMENT_TYPE = 'CTT'
